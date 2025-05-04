@@ -1,0 +1,6 @@
+the links to download the models for the game 
+https://drive.google.com/file/d/1wGoCdO4akP1Gv0iriBSvM97Jg1kCMZOM/view?usp=drive_link
+https://drive.google.com/file/d/1qt-65IrongNij3WgjuRKaEeUuSu-QKLq/view?usp=drive_link
+https://drive.google.com/file/d/1XLeDet5qd8E4zmNjXBHC4sf5Z4TL7lgv/view?usp=drive_link
+
+all these models should be inside models folder (the folder in which this txt file is)
