@@ -1,0 +1,113 @@
+Camera: x: -10.93 y: 5.50 z: 0.02 office port info 
+scen 
+// components/Scene.jsx
+import React, { useEffect, useRef, Suspense } from 'react';
+import { useGLTF, PointerLockControls } from '@react-three/drei';
+import { useThree, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+
+const speed = 5;
+
+function CityModel() {
+  const { scene } = useGLTF('/models/envport.glb');
+  return <primitive object={scene} />;
+}
+
+function isCameraInRegion(region, cameraPosition) {
+  const px = cameraPosition.x;
+  const pz = cameraPosition.z;
+  let inside = false;
+
+  for (let i = 0, j = region.length - 1; i < region.length; j = i++) {
+    const [xi, zi] = region[i];
+    const [xj, zj] = region[j];
+
+    const intersect =
+      zi > pz !== zj > pz &&
+      px < ((xj - xi) * (pz - zi)) / (zj - zi + Number.EPSILON) + xi;
+
+    if (intersect) inside = !inside;
+  }
+
+  return inside;
+}
+
+
+const Scene = ({ blockedareas,cameraStart = [0, 3, 10] }) => {
+  const { camera, gl } = useThree();
+  const keys = useRef({});
+  const region = [[1,1], [4,1], [4,4], [1,4]];
+  // Set camera position on mount
+  useEffect(() => {
+    camera.position.set(...cameraStart);
+  }, [camera, cameraStart]);
+
+  // Key handlers
+  useEffect(() => {
+    const down = (e) => (keys.current[e.key.toLowerCase()] = true);
+    const up = (e) => (keys.current[e.key.toLowerCase()] = false);
+    window.addEventListener('keydown', down);
+    window.addEventListener('keyup', up);
+    return () => {
+      window.removeEventListener('keydown', down);
+      window.removeEventListener('keyup', up);
+    };
+  }, []);
+
+  // WASD movement logic
+  useFrame((_, delta) => {
+    if (document.pointerLockElement !== gl.domElement) return;
+
+    const direction = new THREE.Vector3();
+    const right = new THREE.Vector3();
+    const move = new THREE.Vector3();
+
+    camera.getWorldDirection(direction);
+    direction.y = 0;
+    direction.normalize();
+    right.crossVectors(direction, camera.up).normalize();
+
+    if (keys.current['w']) move.add(direction);
+    if (keys.current['s']) move.addScaledVector(direction, -1);
+    if (keys.current['a']) move.addScaledVector(right, -1);
+    if (keys.current['d']) move.add(right);
+
+    move.normalize().multiplyScalar(speed * delta);
+    camera.position.add(move);
+    console.log('Camera position:', camera.position);
+
+  });
+
+  return (
+    <>
+      <Suspense fallback={null}>
+        <CityModel />
+      </Suspense>
+      <PointerLockControls />
+    </>
+  );
+};
+
+export default Scene; 
+
+app.jsx
+
+// App.jsx
+import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import Scene from './components/Scene';
+
+function App() {
+  return (
+    <Canvas
+      style={{ width: '100vw', height: '100vh', backgroundColor: '#87CEEB' }}
+      camera={{ fov: 75, near: 0.1, far: 1000 }}
+    >
+      <ambientLight />
+      <directionalLight position={[10, 10, 5]} />
+      <Scene cameraStart={[5, 8, 20]} /> {/* Set your spawn point here */}
+    </Canvas>
+  );
+}
+
+export default App;

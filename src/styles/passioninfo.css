@@ -1,0 +1,138 @@
+/* src/styles/techinfo.css */
+
+/* General body styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    background: #0a0a0a;
+    overflow: hidden;
+  }
+  
+  /* Main container */
+  .hacker-page {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #0a0a0a 0%, #0f0f1a 100%);
+    gap: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* Left and Right Panels */
+  .left-panel, .right-panel {
+    flex: 1;
+    background: rgba(10, 10, 20, 0.85);
+    border: 2px solid #00ffea;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffea, 0 0 40px #ff00ff;
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+    height: calc(100% - 20px);
+    padding: 20px;
+    scrollbar-width: thin;
+  }
+  
+  /* Scrollbar Styling (Neon) */
+  .scrollable::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollable::-webkit-scrollbar-track {
+    background: #111;
+  }
+  
+  .scrollable::-webkit-scrollbar-thumb {
+    background: #00ffea;
+    border-radius: 5px;
+  }
+  
+  /* Left Panel Content (Tech Info) */
+  .left-panel h1 {
+    font-size: 2.5rem;
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 30px;
+    animation: glitch 1s infinite alternate;
+  }
+  
+  .intro {
+    font-size: 1.2rem;
+    color: #00ffe1;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  .left-panel h2 {
+    margin-top: 40px;
+    font-size: 1.6rem;
+    color: #ff00ff;
+    border-bottom: 2px solid #ff00ff;
+    padding-bottom: 5px;
+  }
+  
+  .left-panel ul {
+    list-style: none;
+    padding-left: 10px;
+    margin-top: 20px;
+  }
+  
+  .left-panel li {
+    margin-bottom: 12px;
+    color: #99ff00;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .left-panel li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: #00ffea;
+  }
+  
+  footer {
+    margin-top: 50px;
+    font-size: 0.8rem;
+    color: #8888ff;
+    text-align: center;
+    opacity: 0.7;
+  }
+  
+  /* Right Panel Content (Logos) */
+  .right-panel {
+    display: block; /* Important: block to allow scrolling */
+  }
+  
+  .right-panel img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 30px auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px #00fff0);
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  
+  .right-panel img:hover {
+    transform: scale(1.2) rotate(2deg);
+    filter: drop-shadow(0 0 20px #ff00ff);
+  }
+  
+  /* Glitch Text Animation */
+  @keyframes glitch {
+    0% {
+      text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+    }
+    50% {
+      text-shadow: -2px 2px #00ffea, 2px -2px #ff00ff;
+    }
+    100% {
+      text-shadow: 2px -2px #00ffff, -2px 2px #ff00ff;
+    }
+  }
+  

@@ -1,0 +1,39 @@
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    padding: 15px 30px;
+    background: rgba(0, 255, 234, 0.1);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid #00ffea;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    display: inline;
+  }
+  
+  .navbar a {
+    color: #00ffea;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s, text-shadow 0.3s;
+    animation: glitchNavbar 1.5s infinite alternate;
+  }
+  
+  .navbar a:hover {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+  }
